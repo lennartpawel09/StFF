@@ -1,0 +1,199 @@
+.container {
+    display: grid;
+    grid-template-areas: 
+    "header header header"
+    "nav nav nav"
+    "main main main"
+    "footer footer footer";
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+header {
+    grid-area: header;
+    background-color: rgb(236, 236, 236);
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav {
+    grid-area: nav;
+    background-color: rgb(220, 220, 220);
+    padding: 15px 0;
+}
+
+nav ul {
+    list-style: none; /*tar brot punkterna framför länkarna*/
+    margin: 0;
+    padding: 0;
+    display: flex;        
+    justify-content: center;
+    align-items: center;
+    gap: 20px; 
+    flex-wrap: wrap;
+}
+
+nav a {
+    text-decoration: none; /* tar bort underline på länkarna (ser mer ut som en knapp) */
+    color: black;
+    font-weight: bold;
+    padding: 8px 12px;
+    transition: 0.2s; /*gör att ALLA transitions tar 0,2s*/
+}
+
+nav a:hover {
+    background-color: rgb(246, 246, 246); /* lite ljusare */
+    cursor: pointer; /* gör att muspekare blir hand */
+    border-radius: 6px;
+}
+
+main {
+    grid-area: main;
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+}
+
+footer {
+    grid-area: footer;
+    background-color: rgb(167, 206, 247);
+    height: 50px;
+    text-align: center;
+    font-size: 14px;
+    color: #444;
+    padding: 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.logo {
+    width: clamp(85px, 10vw, 125px);
+    height: auto;
+    padding-right: 72px;
+    padding-left: 32px;
+}
+
+.rubrik {
+    font-size: clamp(27px, 6vw, 75px);
+    color: black;
+}
+
+.knappT {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0a2a66;
+    color: white;
+    padding: clamp(10px, 2vw, 22px);
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 5px solid black;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: clamp(14px, 2.5vw, 20px);
+    text-decoration: none;
+    width: clamp(100px, 40vw, 200px);
+    max-height: 60px;
+    transition: all 0.3s ease;
+}
+
+section h2 { /*gör att alla h2 i min section (main med kort) blir centrerade, har margin och samma storlek*/
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.produkter {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    overflow: hidden; 
+    text-align: center;
+    padding-bottom: 10px;
+    height: auto;
+    background: rgb(236, 236, 236);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.card img {
+    object-fit: cover; /* gör att bilden fyller snyggt */
+    border-radius: 8px;
+    transition: transform 0.3s ease; /*gör att bilden blir smooth när "transform" i .knappT:hover tillämpas*/
+    padding-top: 15px;
+    width: clamp(80px, 20vw, 260px);
+    height: auto;
+}
+
+.card h3 {
+    margin: 10px 0 5px;
+    font-size: 1.1rem;
+}
+
+.price {
+    font-weight: bold;
+    color: #333;
+}
+
+.knappT:hover {
+    /*skapar en hover effect (ljusare och större) när man rör knappen, använder den även på denna knapp*/
+    cursor: pointer;
+    transform: scale(1.05);
+    filter: brightness(1.15);
+}
+
+html {
+    scroll-behavior: smooth; /*Gör att när man använder nav så flyttas man smooth*/
+}
+
+/*här nedan har jag allt som gör min sida mer responsiv*/
+
+@media (max-width: 600px) {
+    .produkter {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+    }
+
+    .rubrik {
+        font-size: clamp(28px, 8vw, 62px);
+        text-align: center;
+    }
+
+    header {
+        justify-content: center; 
+        height: auto;
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .knappT {
+        margin: 10px auto;
+        padding: 12px 16px;
+        font-size: 14px;
+        max-width: 90%;
+        width: fit-content;
+        border-radius: 12px;
+        order: 2; /*gör att den hamnar under rubriken vid mobil layout*/
+    }
+}
