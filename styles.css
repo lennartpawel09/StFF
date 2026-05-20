@@ -1,17 +1,267 @@
-* {
-  margin:0px;
-  padding:0px;
+.container {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "aside main main"
+        "aside2 aside2 aside2"
+        "footer footer footer";
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto 1fr auto auto;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-#octocat {
-  display: block;
-  width:384px;
-  margin: 50px auto;
+body {
+    margin: 0;
 }
 
-p {
-  display: block;
-  width: 400px;
-  margin: 50px auto;
-  font: 30px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-area: header;
+    background-color: rgb(236, 236, 236);
+    padding-right: 10px;
+    height: 150px;
+    margin-bottom: 7px;
 }
+
+aside:first-of-type {
+    /*använder first-of-type för att kunna ha två seperata aside element*/
+    grid-area: aside;
+    background-color: rgb(167, 206, 247);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-left: 6px;
+    margin-bottom: 7px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    /* detta gör att nyheterna ser mer "poppiga" ut*/
+}
+
+aside:last-of-type {
+    grid-area: aside2;
+    background-color: rgb(167, 206, 247);
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+main {
+    grid-area: main;
+    margin: 10px;
+}
+
+main img {
+    /*för att kunna påverka bilderna i main*/
+    border-radius: 12px;
+    border: 2px solid black;
+    flex-shrink: 0;
+}
+
+footer {
+    grid-area: footer;
+    background-color: rgb(236, 236, 236);
+    height: 50px;
+    text-align: center;
+    font-size: 14px;
+    color: #444;
+    padding: 0px;
+    margin: 0;
+}
+
+.logo {
+    width: clamp(80px, 12vw, 130px);
+    height: auto;
+    padding-right: 65px;
+    margin-left: 60px;
+}
+
+.logo2 {
+    width: clamp(50px, 8vw, 100px);
+}
+
+.rubrik {
+    font-size: clamp(27px, 6vw, 75px); /*clamp gör att jag kan få ett mer responsivt design, alltså att storleken ändras beroende på hur stor skärmen är*/
+    color: black;
+}
+
+.aside-rubrik {
+    /*Här kan jag styla mina rubriker till "Nyheter" och "Domarshop"*/
+    color: black;
+    display: inline-block;
+    border-bottom: 2px solid black;
+    /* understreck under rubriken */
+    padding-bottom: 5px;
+    margin-bottom: 25px;
+    font-size: 38px;
+}
+
+.rightlogo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    border-radius: 50px;
+}
+
+.reverse {
+    /* Gör varannan rad spegelvänd i min main*/
+    flex-direction: row-reverse;
+}
+
+.row img {
+    /*ändrar bilderna som jag har i min main utan att påverka texten*/
+    width: clamp(120px, 25vw, 200px);
+}
+
+.row p {
+    /*ändrar texten som jag har i min main utan att påverka bilderna*/
+    flex: 1; /*flex: 1; gör att min paragraf tar upp allt utrymme som finns kvar*/
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.text h2 { /*här kan jag bara styla min rubrik av div*/
+    margin-bottom: 5px;
+}
+
+.knapp {
+    display: inline-block;
+    background-image: url(Bilder/domarshop.avif);
+    background-size: cover;
+    border: 3px solid lightblue;
+    width: 275px;
+    height: 155px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.knapp:hover {
+    /*skapar en hover effect (ljusare och större) när man rör knappen*/
+    cursor: pointer;
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.nyhetskort {
+    background-color: rgb(180, 206, 247);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    border-left: 5px solid rgb(0, 160, 247);
+    /*gör att nyheterna ser proffsigare ut med en border till vänster*/
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    /*använder box-shadow effekten även på innehållet av nyheterna för att ytterligare styrka "hook" effekten*/
+    overflow: hidden;
+    width: 100%;
+}
+
+.visa-mer-knapp {
+    text-align: center;
+    font-weight: bold;
+    color: rgb(76, 127, 203);
+    margin-top: 10px;
+    font-size: 17px
+}
+
+
+.side-product {
+    width: clamp(70px, 9vw, 160px);
+    height: auto;
+    flex-shrink: 0;
+}
+
+
+/*här nedan har jag allt som gör min sida mer responsiv*/
+
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "aside"  
+            "main"
+            "aside2"
+            "footer";
+    }
+
+    aside:first-of-type {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /*så att jag får 2 kolumner endast (som är lika stora)*/
+        gap: 8px;
+        padding: 10px;
+        align-items: start;  /*gör att mina nyheter börjar på samma höj*/
+    }
+
+    .aside-rubrik {
+        grid-column: 1 / -1;
+        text-align: center;
+        font-size: clamp(25px, 6vw, 38px);
+    }
+
+    .nyhetskort:nth-of-type(n+3) { /*behövde googla detta, det gör att alla nyheter efter de första 2 försvinner*/
+        display: none; 
+    }
+
+    .visa-mer-knapp {
+        margin-top: 10px;
+        grid-column: 1 / -1; /*behövde googla detta, det gör att visa mer knappen sträcker sig över båda kolumnerna*/
+    }
+
+
+    .nyhetskort {
+        width: 85%;
+        margin: 0 auto;
+    }
+
+    .logo {
+        display: none
+    }
+
+    .rightlogo {
+        display: none;
+    }
+
+    header {
+        justify-content: center; 
+        height: auto;
+        padding: 10px;
+    }
+
+    .rubrik {
+        font-size: clamp(24px, 5vw, 60px);
+        text-align: center;
+    }
+
+    .row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .reverse {
+        flex-direction: column;
+    }
+
+    .aside2 img {
+        display: none;
+    }
+}
+
+
